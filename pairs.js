@@ -7,7 +7,7 @@ let tens = 00;
 let appendTens = document.getElementById("tens");
 let appendSeconds = document.getElementById("seconds");
 let Interval;
-let images = ["sass", "git", "gulp", "css", "grunt"];
+let images = ["github", "git", "jscript", "css", "html"];
 
 let clone = images.slice(0); // duplicate array
 let cards = images.concat(clone); // merge to arrays
