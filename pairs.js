@@ -1,21 +1,21 @@
-var myCards = document.getElementById("container");
-var resultsArray = [];
-var counter = 0;
-var text = document.getElementById("text");
-var seconds = 00;
-var tens = 00;
-var appendTens = document.getElementById("tens");
-var appendSeconds = document.getElementById("seconds");
-var Interval;
-var images = ["sass", "git", "gulp", "css", "grunt"];
+let myCards = document.getElementById("container");
+let resultsArray = [];
+let counter = 0;
+let text = document.getElementById("text");
+let seconds = 00;
+let tens = 00;
+let appendTens = document.getElementById("tens");
+let appendSeconds = document.getElementById("seconds");
+let Interval;
+let images = ["sass", "git", "gulp", "css", "grunt"];
 
-var clone = images.slice(0); // duplicate array
-var cards = images.concat(clone); // merge to arrays
+let clone = images.slice(0); // duplicate array
+let cards = images.concat(clone); // merge to arrays
 
 // Shuffle function
 function shuffle(o) {
   for (
-    var j, x, i = o.length;
+    let j, x, i = o.length;
     i;
     j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
   );
@@ -23,7 +23,7 @@ function shuffle(o) {
 }
 shuffle(cards);
 
-for (var i = 0; i < cards.length; i++) {
+for (let i = 0; i < cards.length; i++) {
   card = document.createElement("div");
   card.dataset.item = cards[i];
   card.dataset.view = "card";
@@ -32,7 +32,7 @@ for (var i = 0; i < cards.length; i++) {
   card.onclick = function () {
     if (this.className != "flipped" && this.className != "correct") {
       this.className = "flipped";
-      var result = this.dataset.item;
+      let result = this.dataset.item;
       resultsArray.push(result);
       clearInterval(Interval);
       Interval = setInterval(startTimer, 10);
@@ -52,16 +52,16 @@ for (var i = 0; i < cards.length; i++) {
   };
 }
 
-var check = function (className) {
-  var x = document.getElementsByClassName("flipped");
+const check = function (className) {
+  let x = document.getElementsByClassName("flipped");
   setTimeout(function () {
-    for (var i = x.length - 1; i >= 0; i--) {
+    for (let i = x.length - 1; i >= 0; i--) {
       x[i].className = className;
     }
   }, 500);
 };
 
-var win = function () {
+const win = function () {
   if (counter === 5) {
     clearInterval(Interval);
     text.innerHTML = "Your time was " + seconds + ":" + tens;
