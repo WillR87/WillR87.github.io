@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping List</title>
+    <link href="shoplist.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <!--Header-->
+    <header><img id="headerpic" src="headerpic.jpg"</header>
+    <!--Top Section-->
+    <h1>Shopping List</h1>
+    <input type="text" id="item" placeholder="Item" /> x
+    <input type="number" id="qty" placeholder="Quantity" />
+    <button onclick="addItem()">List It!</button>
+    <p id="display"></p>
+    <hr />
+    <!--Bottom Section -->
+    <h1>Shopping Basket</h1>
+    <p>
+      You most likely forgot something, check! Type your cart contents in
+      seperated by commas.
+    </p>
+    <input type"text" id="shoppingBasket" placeholder="e.g. tomato, eggs, milk"
+    />
+    <input type="button" value="Forget Anything?" onclick="checkItems();" />
+    <p id="reminder"></p>
+
+    <script>
+      //Top Section
+      "use strict";
+      //shoppingList is an [] of object {item, quantity}
+      let shoppingList = [];
+      const basket = document.getElementById("shoppingBasket");
+
+      function addItem() {
+        //Create an Object and then add the object into the shoppingList array
+        const itemToAdd = {
+          item: document.getElementById("item").value,
+          quantity: document.getElementById("qty").value,
+        };
+        shoppingList.push(itemToAdd);
+        displayList();
+        console.log(shoppingList);
+      }
+      function displayList() {
+        //clear the display, so it only adds the most recent added item instead of everything on the list again.
+        document.getElementById("display").innerHTML = "";
+        //for loop thru each item in the shoppingList array, display item, quantity, and a delete button, will add what was on the list + the new item
+        for (let shoppingListItem of shoppingList) {
+          document.getElementById("display").innerHTML += `${
+            shoppingListItem.item
+          } x ${shoppingListItem.quantity}
+         <span style="cursor: pointer" onclick="deleteItem(${shoppingList.indexOf(
+           shoppingListItem
+         )})">&#10062;</span><br/>`; //the &#number is the html icon for the delete button.
+          //console.log(shoppingListItem) //test
+        }
+      }
+      function deleteItem(itemToDelete) {
+        //delete the item using the splice method
+        shoppingList.splice(itemToDelete, 1);
+        displayList();
+      }
+      //Bottom Section
+      function checkItems() {
+        //split user input into an array
+        const splitBasket = basket.value.toLowerCase().split(", ");
+        console.log(splitBasket);
+
+        const itemsStillToBuy = shoppingList.filter(function (
+          shoppingListElement
+        ) {
+          console.log(shoppingListElement);
+          const itemInBasket = shoppingListElement.item.toLowerCase();
+          console.log(itemInBasket);
+          return !splitBasket.includes(itemInBasket);
+        });
+        console.log(itemsStillToBuy);
+        //if itemsStillToBuy is not empty, then display all items in the itemsStillToBuy
+        if (itemsStillToBuy.length !== 0) {
+          document.getElementById("reminder").innerHTML =
+            "You forgot these items:<br />";
+          //display itemsStillToBuy
+          for (let itemStillToBuy of itemsStillToBuy) {
+            document.getElementById(
+              "reminder"
+            ).innerHTML += `${itemStillToBuy.item} x ${itemStillToBuy.quantity}<br />`;
+          }
+        } else {
+          document.getElementById("reminder").innerHTML =
+            "-----You got it all!-----";
+        }
+      }
+    </script>
+  </body>
+</html>
