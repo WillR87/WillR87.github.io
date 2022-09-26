@@ -1,9 +1,5 @@
-body {
-    background-color: skyblue;
-    font-family: cursive;
-}
-#headerpic {
-    width: auto;
-    
-
-}
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: skyblue;
+      font-family: cursive;
+    }}
